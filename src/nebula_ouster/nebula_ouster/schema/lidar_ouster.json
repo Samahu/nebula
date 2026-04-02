@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "sensor_model": {
+      "type": "string",
+      "enum": ["OS0-32", "OS0-64", "OS0-128", "OS1-32", "OS1-64", "OS1-128", "OS2-32", "OS2-64", "OS2-128"],
+      "description": "Ouster sensor model"
+    },
+    "return_mode": {
+      "type": "string",
+      "enum": ["SingleStrongest", "SingleLast", "Dual"],
+      "description": "Return mode"
+    }
+  }
+}

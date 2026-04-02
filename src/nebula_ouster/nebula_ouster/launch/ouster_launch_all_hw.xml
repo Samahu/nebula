@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="sensor_model">
+    <choice value="OS0-32" />
+    <choice value="OS0-64" />
+    <choice value="OS0-128" />
+    <choice value="OS1-32" />
+    <choice value="OS1-64" />
+    <choice value="OS1-128" />
+    <choice value="OS2-32" />
+    <choice value="OS2-64" />
+    <choice value="OS2-128" />
+  </arg>
+  <arg name="launch_hw" default="true"
+       description="Whether to connect to a real sensor (true) or to accept packet messages (false).">
+    <choice value="true" />
+    <choice value="false" />
+  </arg>
+  <arg name="config_file"
+       default="$(find-pkg-share nebula_ouster)/config/$(var sensor_model).param.yaml"/>
+
+  <node pkg="nebula_ouster" exec="ouster_ros_wrapper_node"
+        name="ouster_ros_wrapper_node" output="screen">
+    <param from="$(var config_file)" allow_substs="true"/>
+    <param name="launch_hw" value="$(var launch_hw)"/>
+  </node>
+</launch>

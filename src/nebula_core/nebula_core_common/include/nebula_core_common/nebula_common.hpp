@@ -202,6 +202,15 @@ enum class SensorModel : uint8_t {
   ROBOSENSE_HELIOS,
   ROBOSENSE_BPEARL_V3,
   ROBOSENSE_BPEARL_V4,
+  OUSTER_OS0_32,
+  OUSTER_OS0_64,
+  OUSTER_OS0_128,
+  OUSTER_OS1_32,
+  OUSTER_OS1_64,
+  OUSTER_OS1_128,
+  OUSTER_OS2_32,
+  OUSTER_OS2_64,
+  OUSTER_OS2_128,
   CONTINENTAL_ARS548,
   CONTINENTAL_SRR520
 };
@@ -283,6 +292,33 @@ inline std::ostream & operator<<(std::ostream & os, nebula::drivers::SensorModel
       break;
     case SensorModel::ROBOSENSE_BPEARL_V4:
       os << "BPEARL V4.0";
+      break;
+    case SensorModel::OUSTER_OS0_32:
+      os << "OS0-32";
+      break;
+    case SensorModel::OUSTER_OS0_64:
+      os << "OS0-64";
+      break;
+    case SensorModel::OUSTER_OS0_128:
+      os << "OS0-128";
+      break;
+    case SensorModel::OUSTER_OS1_32:
+      os << "OS1-32";
+      break;
+    case SensorModel::OUSTER_OS1_64:
+      os << "OS1-64";
+      break;
+    case SensorModel::OUSTER_OS1_128:
+      os << "OS1-128";
+      break;
+    case SensorModel::OUSTER_OS2_32:
+      os << "OS2-32";
+      break;
+    case SensorModel::OUSTER_OS2_64:
+      os << "OS2-64";
+      break;
+    case SensorModel::OUSTER_OS2_128:
+      os << "OS2-128";
       break;
     case SensorModel::CONTINENTAL_ARS548:
       os << "ARS548";
@@ -421,6 +457,16 @@ inline SensorModel sensor_model_from_string(const std::string & sensor_model)
   if (sensor_model == "Bpearl" || sensor_model == "Bpearl_V4")
     return SensorModel::ROBOSENSE_BPEARL_V4;
   if (sensor_model == "Bpearl_V3") return SensorModel::ROBOSENSE_BPEARL_V3;
+  // Ouster
+  if (sensor_model == "OS0-32") return SensorModel::OUSTER_OS0_32;
+  if (sensor_model == "OS0-64") return SensorModel::OUSTER_OS0_64;
+  if (sensor_model == "OS0-128") return SensorModel::OUSTER_OS0_128;
+  if (sensor_model == "OS1-32") return SensorModel::OUSTER_OS1_32;
+  if (sensor_model == "OS1-64") return SensorModel::OUSTER_OS1_64;
+  if (sensor_model == "OS1-128") return SensorModel::OUSTER_OS1_128;
+  if (sensor_model == "OS2-32") return SensorModel::OUSTER_OS2_32;
+  if (sensor_model == "OS2-64") return SensorModel::OUSTER_OS2_64;
+  if (sensor_model == "OS2-128") return SensorModel::OUSTER_OS2_128;
   // Continental
   if (sensor_model == "ARS548") return SensorModel::CONTINENTAL_ARS548;
   if (sensor_model == "SRR520") return SensorModel::CONTINENTAL_SRR520;
@@ -471,6 +517,25 @@ inline std::string sensor_model_to_string(const SensorModel & sensor_model)
       return "Bpearl_V3";
     case SensorModel::ROBOSENSE_BPEARL_V4:
       return "Bpearl_V4";
+    // Ouster
+    case SensorModel::OUSTER_OS0_32:
+      return "OS0-32";
+    case SensorModel::OUSTER_OS0_64:
+      return "OS0-64";
+    case SensorModel::OUSTER_OS0_128:
+      return "OS0-128";
+    case SensorModel::OUSTER_OS1_32:
+      return "OS1-32";
+    case SensorModel::OUSTER_OS1_64:
+      return "OS1-64";
+    case SensorModel::OUSTER_OS1_128:
+      return "OS1-128";
+    case SensorModel::OUSTER_OS2_32:
+      return "OS2-32";
+    case SensorModel::OUSTER_OS2_64:
+      return "OS2-64";
+    case SensorModel::OUSTER_OS2_128:
+      return "OS2-128";
     // Continental
     case SensorModel::CONTINENTAL_ARS548:
       return "ARS548";
