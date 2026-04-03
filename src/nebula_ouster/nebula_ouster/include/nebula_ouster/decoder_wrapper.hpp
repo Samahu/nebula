@@ -49,7 +49,7 @@ public:
   void on_config_change(
     const std::shared_ptr<const nebula::drivers::OusterSensorConfiguration> & new_config);
 
-  nebula::drivers::Status status();
+  nebula::Status status();
 
 private:
   void publish_cloud(
@@ -62,7 +62,7 @@ private:
       std::chrono::duration<double>(seconds));
   }
 
-  nebula::drivers::Status status_;
+  nebula::Status status_;
   rclcpp::Logger logger_;
 
   std::shared_ptr<nebula::drivers::OusterHwInterface> hw_interface_;

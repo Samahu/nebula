@@ -28,10 +28,10 @@ OusterHwInterfaceWrapper::OusterHwInterfaceWrapper(
     std::make_shared<drivers::OusterHwInterface>(
       drivers::loggers::RclcppLogger(parent_node->get_logger()).child("HwInterface"))),
   logger_(parent_node->get_logger().get_child("HwInterfaceWrapper")),
-  status_(nebula::drivers::Status::NOT_INITIALIZED)
+  status_(nebula::Status::NOT_INITIALIZED)
 {
   status_ = hw_interface_->set_sensor_configuration(config);
-  if (drivers::Status::OK != status_) {
+  if (nebula::Status::OK != status_) {
     throw std::runtime_error("Sensor configuration invalid: " + util::to_string(status_));
   }
 }
@@ -42,7 +42,7 @@ void OusterHwInterfaceWrapper::on_config_change(
   hw_interface_->set_sensor_configuration(new_config);
 }
 
-nebula::drivers::Status OusterHwInterfaceWrapper::status()
+nebula::Status OusterHwInterfaceWrapper::status()
 {
   return status_;
 }

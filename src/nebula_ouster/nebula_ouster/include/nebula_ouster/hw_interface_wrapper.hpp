@@ -15,6 +15,7 @@
 #pragma once
 
 #include <nebula_core_common/nebula_common.hpp>
+#include <nebula_core_common/nebula_status.hpp>
 #include <nebula_ouster_common/ouster_common.hpp>
 #include <nebula_ouster_hw_interfaces/ouster_hw_interface.hpp>
 #include <rclcpp/rclcpp.hpp>
@@ -34,14 +35,14 @@ public:
   void on_config_change(
     const std::shared_ptr<const nebula::drivers::OusterSensorConfiguration> & new_config);
 
-  nebula::drivers::Status status();
+  nebula::Status status();
 
   std::shared_ptr<drivers::OusterHwInterface> hw_interface() const;
 
 private:
   std::shared_ptr<drivers::OusterHwInterface> hw_interface_;
   rclcpp::Logger logger_;
-  nebula::drivers::Status status_;
+  nebula::Status status_;
 };
 
 }  // namespace nebula::ros

@@ -32,14 +32,14 @@ namespace nebula::ros
 
 OusterRosWrapper::OusterRosWrapper(const rclcpp::NodeOptions & options)
 : rclcpp::Node("ouster_ros_wrapper", rclcpp::NodeOptions(options).use_intra_process_comms(true)),
-  wrapper_status_(drivers::Status::NOT_INITIALIZED),
+  wrapper_status_(Status::NOT_INITIALIZED),
   sensor_cfg_ptr_(nullptr)
 {
   setvbuf(stdout, NULL, _IONBF, BUFSIZ);
 
   wrapper_status_ = declare_and_get_sensor_config_params();
 
-  if (wrapper_status_ != drivers::Status::OK) {
+  if (wrapper_status_ != Status::OK) {
     throw std::runtime_error(
       "Sensor configuration invalid: " + util::to_string(wrapper_status_));
   }
@@ -80,7 +80,7 @@ OusterRosWrapper::OusterRosWrapper(const rclcpp::NodeOptions & options)
     std::bind(&OusterRosWrapper::on_parameter_change, this, std::placeholders::_1));
 }
 
-nebula::Status OusterRosWrapper::declare_and_get_sensor_config_params()
+Status OusterRosWrapper::declare_and_get_sensor_config_params()
 {
   nebula::drivers::OusterSensorConfiguration config;
 
@@ -150,17 +150,17 @@ nebula::Status OusterRosWrapper::declare_and_get_sensor_config_params()
   return validate_and_set_config(new_cfg_ptr);
 }
 
-drivers::Status OusterRosWrapper::validate_and_set_config(
+Status OusterRosWrapper::validate_and_set_config(
   std::shared_ptr<const drivers::OusterSensorConfiguration> & new_config)
 {
   if (!drivers::is_ouster_model(new_config->sensor_model)) {
-    return drivers::Status::INVALID_SENSOR_MODEL;
+    return Status::INVALID_SENSOR_MODEL;
   }
   if (new_config->return_mode == nebula::drivers::ReturnMode::UNKNOWN) {
-    return drivers::Status::INVALID_ECHO_MODE;
+    return Status::INVALID_ECHO_MODE;
   }
   if (new_config->frame_id.empty()) {
-    return drivers::Status::SENSOR_CONFIG_ERROR;
+    return Status::SENSOR_CONFIG_ERROR;
   }
 
   if (hw_interface_wrapper_) {
@@ -174,7 +174,7 @@ drivers::Status OusterRosWrapper::validate_and_set_config(
   }
 
   sensor_cfg_ptr_ = new_config;
-  return drivers::Status::OK;
+  return Status::OK;
 }
 
 void OusterRosWrapper::receive_scan_message_callback(
@@ -186,7 +186,7 @@ void OusterRosWrapper::receive_scan_message_callback(
       "Ignoring received OusterScan. Launch with launch_hw:=false to enable packet replay.");
     return;
   }
-  if (!decoder_wrapper_ || decoder_wrapper_->status() != drivers::Status::OK) {
+  if (!decoder_wrapper_ || decoder_wrapper_->status() != Status::OK) {
     return;
   }
   for (auto & pkt : scan_msg->packets) {
@@ -197,17 +197,17 @@ void OusterRosWrapper::receive_scan_message_callback(
   }
 }
 
-drivers::Status OusterRosWrapper::get_status()
+Status OusterRosWrapper::get_status()
 {
   return wrapper_status_;
 }
 
-drivers::Status OusterRosWrapper::stream_start()
+Status OusterRosWrapper::stream_start()
 {
   if (!hw_interface_wrapper_) {
-    return drivers::Status::UDP_CONNECTION_ERROR;
+    return Status::UDP_CONNECTION_ERROR;
   }
-  if (hw_interface_wrapper_->status() != drivers::Status::OK) {
+  if (hw_interface_wrapper_->status() != Status::OK) {
     return hw_interface_wrapper_->status();
   }
   return hw_interface_wrapper_->hw_interface()->sensor_interface_start();
@@ -246,7 +246,7 @@ rcl_interfaces::msg::SetParametersResult OusterRosWrapper::on_parameter_change(
     std::make_shared<const nebula::drivers::OusterSensorConfiguration>(new_cfg);
   auto status = validate_and_set_config(new_cfg_ptr);
 
-  if (status != drivers::Status::OK) {
+  if (status != Status::OK) {
     RCLCPP_WARN_STREAM(get_logger(), "OnParameterChange aborted: " << status);
     auto result = SetParametersResult();
     result.successful = false;
@@ -259,7 +259,7 @@ rcl_interfaces::msg::SetParametersResult OusterRosWrapper::on_parameter_change(
 
 void OusterRosWrapper::receive_cloud_packet_callback(std::vector<uint8_t> & packet)
 {
-  if (!decoder_wrapper_ || decoder_wrapper_->status() != drivers::Status::OK) {
+  if (!decoder_wrapper_ || decoder_wrapper_->status() != Status::OK) {
     return;
   }
 

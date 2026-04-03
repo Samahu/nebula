@@ -43,22 +43,22 @@ public:
   explicit OusterRosWrapper(const rclcpp::NodeOptions & options);
   ~OusterRosWrapper() noexcept = default;
 
-  drivers::Status get_status();
-  drivers::Status stream_start();
+  Status get_status();
+  Status stream_start();
 
 private:
   void receive_cloud_packet_callback(std::vector<uint8_t> & packet);
   void receive_scan_message_callback(std::unique_ptr<ouster_msgs::msg::OusterScan> scan_msg);
 
-  nebula::Status declare_and_get_sensor_config_params();
+  Status declare_and_get_sensor_config_params();
 
   rcl_interfaces::msg::SetParametersResult on_parameter_change(
     const std::vector<rclcpp::Parameter> & p);
 
-  nebula::Status validate_and_set_config(
+  Status validate_and_set_config(
     std::shared_ptr<const drivers::OusterSensorConfiguration> & new_config);
 
-  nebula::drivers::Status wrapper_status_;
+  Status wrapper_status_;
 
   std::shared_ptr<const nebula::drivers::OusterSensorConfiguration> sensor_cfg_ptr_;
   std::shared_ptr<const nebula::drivers::OusterCalibrationConfiguration> calibration_cfg_ptr_;

@@ -31,7 +31,7 @@ OusterDecoderWrapper::OusterDecoderWrapper(
   const std::shared_ptr<nebula::drivers::OusterHwInterface> & hw_interface,
   const std::shared_ptr<const nebula::drivers::OusterSensorConfiguration> & config,
   const std::shared_ptr<const nebula::drivers::OusterCalibrationConfiguration> & calibration)
-: status_(nebula::drivers::Status::NOT_INITIALIZED),
+: status_(nebula::Status::NOT_INITIALIZED),
   logger_(parent_node->get_logger().get_child("DecoderWrapper")),
   hw_interface_(hw_interface),
   sensor_cfg_(config),
@@ -145,7 +145,7 @@ void OusterDecoderWrapper::on_config_change(
   sensor_cfg_ = new_config;
 }
 
-nebula::drivers::Status OusterDecoderWrapper::status()
+nebula::Status OusterDecoderWrapper::status()
 {
   return status_;
 }
