@@ -36,12 +36,14 @@ SENSOR_MODELS_HESAI = [
 ]
 SENSOR_MODELS_ROBOSENSE = ["Bpearl", "Helios"]
 SENSOR_MODELS_CONTINENTAL = ["ARS548", "SRR520"]
+SENSOR_MODELS_OUSTER = ["OS0-32", "OS0-64", "OS0-128", "OS1-32", "OS1-64", "OS1-128"]
 
 SENSOR_MODELS = (
     SENSOR_MODELS_VELODYNE
     + SENSOR_MODELS_HESAI
     + SENSOR_MODELS_ROBOSENSE
     + SENSOR_MODELS_CONTINENTAL
+    + SENSOR_MODELS_OUSTER
 )
 
 
@@ -63,6 +65,9 @@ def launch_setup(context: launch.LaunchContext, *args, **kwargs):
     elif sensor_model in SENSOR_MODELS_CONTINENTAL:
         vendor_package = "nebula_continental"
         vendor_launch_file = "continental_launch_all_hw.xml"
+    elif sensor_model in SENSOR_MODELS_OUSTER:
+        vendor_package = "nebula_ouster"
+        vendor_launch_file = "ouster_launch_all_hw.xml"
     else:
         raise KeyError(f"Sensor model {sensor_model} does not have an associated launch file")
 

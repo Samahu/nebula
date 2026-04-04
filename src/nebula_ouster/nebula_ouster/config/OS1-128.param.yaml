@@ -1,10 +1,10 @@
 /**:
   ros__parameters:
-    host_ip: 255.255.255.255
-    sensor_ip: 192.168.1.201
+    host_ip: 127.0.0.1
+    sensor_ip: 127.0.0.1
     data_port: 7502
     imu_port: 7503
-    packet_mtu_size: 24896
+    packet_mtu_size: 16640
     launch_hw: true
     setup_sensor: true
     frame_id: ouster
