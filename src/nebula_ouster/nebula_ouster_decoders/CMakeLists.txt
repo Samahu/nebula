@@ -43,14 +43,22 @@ endif()
 find_package(Eigen3 REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_package(Threads REQUIRED)
-find_package(libzip REQUIRED)
+find_package(PkgConfig REQUIRED)
 
-# vcpkg / distro CMake config names differ; normalize to IMPORTED target @c libzip::zip .
+# Use pkg-config to find libzip, avoiding broken cmake config on some distros.
+# On Ubuntu, libzip-targets.cmake (shipped with libzip-dev) references tool binaries
+# from the separate libzip-utils package (e.g. /usr/bin/zipcmp) which may not be installed.
+pkg_check_modules(LIBZIP REQUIRED IMPORTED_TARGET libzip)
+
+# Normalize to IMPORTED target @c libzip::zip regardless of how libzip was found
+# (pkg-config gives PkgConfig::LIBZIP; vcpkg/other cmake configs may use libzip::libzip or LibZip::libzip).
 if(NOT TARGET libzip::zip)
   if(TARGET libzip::libzip)
     add_library(libzip::zip ALIAS libzip::libzip)
   elseif(TARGET LibZip::libzip)
     add_library(libzip::zip ALIAS LibZip::libzip)
+  elseif(TARGET PkgConfig::LIBZIP)
+    add_library(libzip::zip ALIAS PkgConfig::LIBZIP)
   endif()
 endif()
 if(NOT TARGET libzip::zip)
