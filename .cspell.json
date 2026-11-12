@@ -3,7 +3,8 @@
   "language": "en",
   "allowCompoundWords": true,
   "ignorePaths": [
-    "*.drawio"
+    "*.drawio",
+    "src/nebula_ouster/vendor/**"
   ],
   "words": [
     "Adctp",
@@ -20,14 +21,17 @@
     "ccache",
     "ccit",
     "centi",
+    "centideg",
     "ddeg",
     "demarked",
     "DHAVE",
     "Difop",
     "distros",
+    "eigensparse",
     "elts",
     "extrinsics",
     "fout",
+    "glfw",
     "gprmc",
     "gptp",
     "Helios",
@@ -35,6 +39,7 @@
     "horiz",
     "Idat",
     "ipaddr",
+    "jsoncons",
     "katex",
     "lucide",
     "lxml",
@@ -67,6 +72,7 @@
     "rviz",
     "schedutil",
     "sharey",
+    "sophus",
     "srvs",
     "STD_COUT",
     "stds",
@@ -86,6 +92,7 @@
     "XTM",
     "yukkysaito",
     "Zensical",
-    "zensical"
+    "zensical",
+    "zpng"
   ]
 }

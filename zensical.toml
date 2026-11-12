@@ -45,6 +45,9 @@ nav = [
       { "ARS548" = "parameters/vendors/continental/ars548.md" },
       { "SRR520" = "parameters/vendors/continental/srr520.md" },
     ] },
+    { "Ouster" = [
+      { "Ouster" = "parameters/vendors/ouster/ouster.md" },
+    ] },
   ] },
   { "Point cloud types" = "point_types.md" },
   { "Design" = [
@@ -55,6 +58,7 @@ nav = [
     { "Contributing to Nebula" = "contributing/index.md" },
     { "Integration Guide" = "integration_guide.md" },
     { "Benchmarking" = "contributing/benchmarking.md" },
+    { "Cutting Releases" = "contributing/cutting_releases.md" },
   ] },
   { "API Reference" = [
     { "API Reference" = "api_reference.md" },
